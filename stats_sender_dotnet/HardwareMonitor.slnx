@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="Monitor.Core/Monitor.Core.csproj" />
+  <Project Path="Monitor.Hardware/Monitor.Hardware.csproj" />
+  <Project Path="Monitor.Network/Monitor.Network.csproj" />
+  <Project Path="Monitor.Worker/Monitor.Worker.csproj" />
+</Solution>

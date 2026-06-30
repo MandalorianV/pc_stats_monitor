@@ -1,0 +1,5 @@
+C:\Users\Murphy\Desktop\Desktop_Agent\publish\PCStatsSender.pdb
+C:\Users\Murphy\Desktop\Desktop_Agent\publish\Monitor.Core.pdb
+C:\Users\Murphy\Desktop\Desktop_Agent\publish\Monitor.Hardware.pdb
+C:\Users\Murphy\Desktop\Desktop_Agent\publish\Monitor.Network.pdb
+C:\Users\Murphy\Desktop\Desktop_Agent\publish\PCStatsSender.exe

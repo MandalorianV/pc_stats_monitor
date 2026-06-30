@@ -1,0 +1,40 @@
+## ==========================================
+## 1. .NET / C# Core Items
+## ==========================================
+[Bb]in/
+[Oo]bj/
+[Pp]ublish/
+**/publish/
+**/Release/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+appsettings.Development.json
+appsettings.Local.json
+
+## ==========================================
+## 2. Flutter / Dart / Mobile Items
+## ==========================================
+**/build/
+.dark_tool/
+.packages
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+__pycache__/
+*.so
+*.apk
+*.aab
+*.exe
+
+## ==========================================
+## 3. IDEs & Operating Systems
+## ==========================================
+.vs/
+.vscode/
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini

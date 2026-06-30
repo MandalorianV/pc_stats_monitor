@@ -1,0 +1,19 @@
+name: pc_stats_monitor
+description: USB uzerinden PC CPU/GPU istatistiklerini gosteren dashboard.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  gauge_indicator: ^0.6.0
+  wakelock_plus: ^1.6.1
+
+dev_dependencies:
+  flutter_lints: ^4.0.0
+
+flutter:
+  uses-material-design: true

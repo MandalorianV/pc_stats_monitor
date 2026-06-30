@@ -1,0 +1,15 @@
+C:\Users\Murphy\Desktop\PcStatsSender\Monitor.Hardware\bin\Release\net10.0\win-x64\Monitor.Hardware.deps.json
+C:\Users\Murphy\Desktop\PcStatsSender\Monitor.Hardware\bin\Release\net10.0\win-x64\Monitor.Hardware.dll
+C:\Users\Murphy\Desktop\PcStatsSender\Monitor.Hardware\bin\Release\net10.0\win-x64\Monitor.Hardware.pdb
+C:\Users\Murphy\Desktop\PcStatsSender\Monitor.Hardware\bin\Release\net10.0\win-x64\Monitor.Core.dll
+C:\Users\Murphy\Desktop\PcStatsSender\Monitor.Hardware\bin\Release\net10.0\win-x64\Monitor.Core.pdb
+C:\Users\Murphy\Desktop\PcStatsSender\Monitor.Hardware\obj\Release\net10.0\win-x64\Monitor.Hardware.csproj.AssemblyReference.cache
+C:\Users\Murphy\Desktop\PcStatsSender\Monitor.Hardware\obj\Release\net10.0\win-x64\Monitor.Hardware.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Murphy\Desktop\PcStatsSender\Monitor.Hardware\obj\Release\net10.0\win-x64\Monitor.Hardware.AssemblyInfoInputs.cache
+C:\Users\Murphy\Desktop\PcStatsSender\Monitor.Hardware\obj\Release\net10.0\win-x64\Monitor.Hardware.AssemblyInfo.cs
+C:\Users\Murphy\Desktop\PcStatsSender\Monitor.Hardware\obj\Release\net10.0\win-x64\Monitor.Hardware.csproj.CoreCompileInputs.cache
+C:\Users\Murphy\Desktop\PcStatsSender\Monitor.Hardware\obj\Release\net10.0\win-x64\Monitor..4E31A115.Up2Date
+C:\Users\Murphy\Desktop\PcStatsSender\Monitor.Hardware\obj\Release\net10.0\win-x64\Monitor.Hardware.dll
+C:\Users\Murphy\Desktop\PcStatsSender\Monitor.Hardware\obj\Release\net10.0\win-x64\refint\Monitor.Hardware.dll
+C:\Users\Murphy\Desktop\PcStatsSender\Monitor.Hardware\obj\Release\net10.0\win-x64\Monitor.Hardware.pdb
+C:\Users\Murphy\Desktop\PcStatsSender\Monitor.Hardware\obj\Release\net10.0\win-x64\ref\Monitor.Hardware.dll
