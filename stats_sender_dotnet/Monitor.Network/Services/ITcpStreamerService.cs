@@ -14,5 +14,6 @@ namespace Monitor.Network.Services
         Task SendStatsAsync(PcStatsDto stats);
         void TriggerAdbControl(bool wakeUp);
         void Disconnect();
+        void ForceReconnect();
     }
 }

@@ -52,21 +52,41 @@ namespace Monitor.Worker
 
         private async Task NetworkConnectLoop(CancellationToken token)
         {
+            int consecutiveFailures = 0;
+
             while (!token.IsCancellationRequested)
             {
                 try
                 {
                     await _tcpService.ConnectAsync(PhoneIp, PhonePort);
+                    consecutiveFailures = 0;
 
-                    // Keep this loop idle while the connection stays alive
-                    while (!token.IsCancellationRequested)
+                    // Stay in this loop only while the connection is actually
+                    // alive. As soon as IsConnected goes false (dropped cable,
+                    // manual reconnect request, phone restart, etc.) we fall
+                    // through and immediately try to reconnect.
+                    while (!token.IsCancellationRequested && _tcpService.IsConnected)
                     {
-                        await Task.Delay(5000, token);
+                        await Task.Delay(1000, token);
                     }
                 }
                 catch
                 {
-                    // Connection failed, retry after a short delay
+                    consecutiveFailures++;
+
+                    // After a handful of failed attempts (e.g. following a
+                    // physical USB unplug/replug) the local adb server can
+                    // be left with a stale view of the device, silently
+                    // breaking `adb forward` forever. Restarting it here
+                    // self-heals this without requiring the user to click
+                    // the manual Reconnect button.
+                    if (consecutiveFailures >= 5)
+                    {
+                        _tcpService.ForceReconnect();
+                        consecutiveFailures = 0;
+                    }
+
+                    // Retry after a short delay
                     await Task.Delay(3000, token);
                 }
             }

@@ -190,5 +190,19 @@ namespace Monitor.Network.Services
             _stream?.Close();
             _client?.Close();
         }
+
+        // Used by the manual "Reconnect" button. A plain Disconnect() +
+        // retry is often not enough after a physical USB unplug/replug:
+        // the background adb server (port 5037) can be left with a stale
+        // view of the device, so `adb forward` silently keeps failing even
+        // though `adb devices` would eventually show the phone again. The
+        // only reliable fix is to kill the adb server - the next adb
+        // command (the forward call in ConnectAsync) automatically starts
+        // a fresh one and re-detects the device immediately.
+        public void ForceReconnect()
+        {
+            ExecuteAdbCommand("kill-server");
+            Disconnect();
+        }
     }
 }

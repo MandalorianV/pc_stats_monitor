@@ -140,14 +140,15 @@ namespace Monitor.Worker
             _repairAdbButton.Visible = !_tcpService.IsAdbAvailable();
         }
 
-        // Forces the current TCP connection (if any) to drop. Worker's
-        // NetworkConnectLoop notices via IsConnected and reconnects within
-        // ~1 second, so this gives the user an immediate manual retry
-        // instead of waiting for an actual cable/network failure.
+        // Forces the current TCP connection (if any) to drop and restarts
+        // the local adb server, so a physical cable unplug/replug is
+        // recovered from properly instead of leaving the adb daemon with a
+        // stale view of the device. Worker's NetworkConnectLoop notices the
+        // drop via IsConnected and reconnects automatically afterwards.
         private void Reconnect()
         {
             UpdateStatus("Reconnecting...", Color.OrangeRed);
-            _tcpService.Disconnect();
+            _tcpService.ForceReconnect();
         }
 
         // Downloads and re-extracts platform-tools next to the .exe, in
