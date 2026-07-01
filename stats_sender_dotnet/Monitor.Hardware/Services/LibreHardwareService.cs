@@ -62,8 +62,8 @@ namespace Monitor.Hardware.Services
                         p.CpuTemp = targetTemp.Value ?? 0;
                     }
 
-                    var clockSensors = hw.Sensors.Where(s => s.SensorType == SensorType.Clock && s.Name.Contains("Core")).ToList();
-                    if (clockSensors.Any()) p.CpuClock = clockSensors.Average(s => s.Value ?? 0);
+                   var clockSensors = hw.Sensors.Where(s => s.SensorType == SensorType.Clock && s.Name.Contains("Core")).ToList();
+                   if (clockSensors.Any()) p.CpuClock = clockSensors.Max(s => s.Value ?? 0);
 
                     var cpuPowerSensor = hw.Sensors.FirstOrDefault(s => s.SensorType == SensorType.Power && s.Name.Contains("Package"))
                                          ?? hw.Sensors.FirstOrDefault(s => s.SensorType == SensorType.Power);
