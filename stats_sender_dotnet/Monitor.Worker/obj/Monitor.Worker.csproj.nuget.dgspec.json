@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Worker\\Monitor.Worker.csproj": {}
+    "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Worker\\Monitor.Worker.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Core\\Monitor.Core.csproj": {
+    "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Core\\Monitor.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Core\\Monitor.Core.csproj",
+        "projectUniqueName": "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Core\\Monitor.Core.csproj",
         "projectName": "Monitor.Core",
-        "projectPath": "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Core\\Monitor.Core.csproj",
+        "projectPath": "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Core\\Monitor.Core.csproj",
         "packagesPath": "C:\\Users\\Murphy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Core\\obj\\",
+        "outputPath": "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Murphy\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -45,6 +45,14 @@
         "net10.0": {
           "framework": "net10.0",
           "targetAlias": "net10.0",
+          "dependencies": {
+            "Microsoft.NET.ILLink.Tasks": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.9, )",
+              "autoReferenced": true
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -56,6 +64,20 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+              "version": "[10.0.9, 10.0.9]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.win-x64",
+              "version": "[10.0.9, 10.0.9]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+              "version": "[10.0.9, 10.0.9]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -337,16 +359,21 @@
             "System.Xml.XPath.XDocument": "(,5.0.32767]"
           }
         }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
+        }
       }
     },
-    "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Hardware\\Monitor.Hardware.csproj": {
+    "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Hardware\\Monitor.Hardware.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Hardware\\Monitor.Hardware.csproj",
+        "projectUniqueName": "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Hardware\\Monitor.Hardware.csproj",
         "projectName": "Monitor.Hardware",
-        "projectPath": "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Hardware\\Monitor.Hardware.csproj",
+        "projectPath": "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Hardware\\Monitor.Hardware.csproj",
         "packagesPath": "C:\\Users\\Murphy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Hardware\\obj\\",
+        "outputPath": "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Hardware\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Murphy\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -362,8 +389,8 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Core\\Monitor.Core.csproj": {
-                "projectPath": "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Core\\Monitor.Core.csproj"
+              "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Core\\Monitor.Core.csproj": {
+                "projectPath": "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Core\\Monitor.Core.csproj"
               }
             }
           }
@@ -388,6 +415,12 @@
             "LibreHardwareMonitorLib": {
               "target": "Package",
               "version": "[0.9.4, )"
+            },
+            "Microsoft.NET.ILLink.Tasks": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.9, )",
+              "autoReferenced": true
             }
           },
           "imports": [
@@ -401,6 +434,20 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+              "version": "[10.0.9, 10.0.9]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.win-x64",
+              "version": "[10.0.9, 10.0.9]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+              "version": "[10.0.9, 10.0.9]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -682,16 +729,21 @@
             "System.Xml.XPath.XDocument": "(,5.0.32767]"
           }
         }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
+        }
       }
     },
-    "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Network\\Monitor.Network.csproj": {
+    "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Network\\Monitor.Network.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Network\\Monitor.Network.csproj",
+        "projectUniqueName": "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Network\\Monitor.Network.csproj",
         "projectName": "Monitor.Network",
-        "projectPath": "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Network\\Monitor.Network.csproj",
+        "projectPath": "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Network\\Monitor.Network.csproj",
         "packagesPath": "C:\\Users\\Murphy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Network\\obj\\",
+        "outputPath": "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Network\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Murphy\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -707,8 +759,8 @@
             "framework": "net10.0",
             "targetAlias": "net10.0",
             "projectReferences": {
-              "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Core\\Monitor.Core.csproj": {
-                "projectPath": "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Core\\Monitor.Core.csproj"
+              "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Core\\Monitor.Core.csproj": {
+                "projectPath": "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Core\\Monitor.Core.csproj"
               }
             }
           }
@@ -729,6 +781,14 @@
         "net10.0": {
           "framework": "net10.0",
           "targetAlias": "net10.0",
+          "dependencies": {
+            "Microsoft.NET.ILLink.Tasks": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.9, )",
+              "autoReferenced": true
+            }
+          },
           "imports": [
             "net461",
             "net462",
@@ -740,6 +800,20 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+              "version": "[10.0.9, 10.0.9]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.win-x64",
+              "version": "[10.0.9, 10.0.9]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+              "version": "[10.0.9, 10.0.9]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -1021,16 +1095,21 @@
             "System.Xml.XPath.XDocument": "(,5.0.32767]"
           }
         }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
+        }
       }
     },
-    "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Worker\\Monitor.Worker.csproj": {
+    "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Worker\\Monitor.Worker.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Worker\\Monitor.Worker.csproj",
+        "projectUniqueName": "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Worker\\Monitor.Worker.csproj",
         "projectName": "PCStatsSender",
-        "projectPath": "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Worker\\Monitor.Worker.csproj",
+        "projectPath": "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Worker\\Monitor.Worker.csproj",
         "packagesPath": "C:\\Users\\Murphy\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Worker\\obj\\",
+        "outputPath": "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Worker\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Murphy\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -1046,14 +1125,14 @@
             "framework": "net10.0-windows7.0",
             "targetAlias": "net10.0-windows",
             "projectReferences": {
-              "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Core\\Monitor.Core.csproj": {
-                "projectPath": "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Core\\Monitor.Core.csproj"
+              "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Core\\Monitor.Core.csproj": {
+                "projectPath": "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Core\\Monitor.Core.csproj"
               },
-              "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Hardware\\Monitor.Hardware.csproj": {
-                "projectPath": "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Hardware\\Monitor.Hardware.csproj"
+              "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Hardware\\Monitor.Hardware.csproj": {
+                "projectPath": "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Hardware\\Monitor.Hardware.csproj"
               },
-              "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Network\\Monitor.Network.csproj": {
-                "projectPath": "C:\\Users\\Murphy\\Desktop\\Desktop_Agent\\Monitor.Network\\Monitor.Network.csproj"
+              "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Network\\Monitor.Network.csproj": {
+                "projectPath": "C:\\Users\\Murphy\\Development\\pc_stats_monitor\\stats_sender_dotnet\\Monitor.Network\\Monitor.Network.csproj"
               }
             }
           }
@@ -1082,6 +1161,12 @@
             "Microsoft.Extensions.Hosting": {
               "target": "Package",
               "version": "[10.0.9, )"
+            },
+            "Microsoft.NET.ILLink.Tasks": {
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[10.0.9, )",
+              "autoReferenced": true
             }
           },
           "imports": [
@@ -1095,6 +1180,20 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
+          "downloadDependencies": [
+            {
+              "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+              "version": "[10.0.9, 10.0.9]"
+            },
+            {
+              "name": "Microsoft.NETCore.App.Runtime.win-x64",
+              "version": "[10.0.9, 10.0.9]"
+            },
+            {
+              "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+              "version": "[10.0.9, 10.0.9]"
+            }
+          ],
           "frameworkReferences": {
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
@@ -1394,6 +1493,11 @@
             "System.Xml.XPath": "(,4.3.32767]",
             "System.Xml.XPath.XDocument": "(,5.0.32767]"
           }
+        }
+      },
+      "runtimes": {
+        "win-x64": {
+          "#import": []
         }
       }
     }
