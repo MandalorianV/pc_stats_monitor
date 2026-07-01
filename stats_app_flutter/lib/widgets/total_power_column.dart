@@ -88,6 +88,14 @@ class TotalPowerColumn extends StatelessWidget {
                       fontWeight: FontWeight.w700,
                     ),
                   ),
+                  Text(
+                    '${ramUsedGb.toStringAsFixed(1)} GB / ${ramTotalGb.toStringAsFixed(1)} GB',
+                    style: const TextStyle(
+                      color: AppColors.ramAccent,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(height: 6),
