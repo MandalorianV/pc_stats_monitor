@@ -30,6 +30,10 @@ namespace Monitor.Worker
         private readonly Label _gpuClockLabel;
         private readonly Label _gpuWattLabel;
         private readonly Label _ramUsageLabel;
+
+        private readonly Label _ramUsageGBLabel;
+
+        private readonly Label _ramTotalGBLabel;
         private readonly Label _totalWattLabel;
         private readonly Label _lastUpdateLabel;
         private readonly CheckBox _startupCheckBox;
@@ -44,7 +48,7 @@ namespace Monitor.Worker
             _hardwareService = hardwareService;
             _tcpService = tcpService;
 
-            Text = "PC Stats Sender"; Width = 320; Height = 540;
+            Text = "PC Stats Sender"; Width = 320; Height = 600;
             FormBorderStyle = FormBorderStyle.FixedDialog; MaximizeBox = false; StartPosition = FormStartPosition.CenterScreen;
             var font = new Font("Segoe UI", 10);
 
@@ -58,30 +62,32 @@ namespace Monitor.Worker
             _gpuClockLabel   = new Label { Text = "GPU Clock: -",        Left = 20, Top = 235, Width = 280, Font = font };
             _gpuWattLabel    = new Label { Text = "GPU Power: -",        Left = 20, Top = 265, Width = 280, Font = font };
             _ramUsageLabel   = new Label { Text = "RAM Usage: -",        Left = 20, Top = 300, Width = 280, Font = font };
-            _totalWattLabel  = new Label { Text = "TOTAL POWER: -",      Left = 20, Top = 330, Width = 280, Font = new Font("Segoe UI", 10, FontStyle.Bold), ForeColor = Color.DeepSkyBlue };
-            _lastUpdateLabel = new Label { Text = "Last update: -",      Left = 20, Top = 360, Width = 280, ForeColor = Color.Gray };
+            _ramUsageGBLabel = new Label { Text = "RAM Usage GB: -",        Left = 20, Top = 330, Width = 280, Font = font };
+            _ramTotalGBLabel = new Label { Text = "RAM Total GB: -",        Left = 20, Top = 360, Width = 280, Font = font };
+            _totalWattLabel  = new Label { Text = "TOTAL POWER: -",      Left = 20, Top = 390, Width = 280, Font = new Font("Segoe UI", 10, FontStyle.Bold), ForeColor = Color.DeepSkyBlue };
+            _lastUpdateLabel = new Label { Text = "Last update: -",      Left = 20, Top = 420, Width = 280, ForeColor = Color.Gray };
 
             // Reads the current registry state so the checkbox always reflects reality.
             _startupCheckBox = new CheckBox
             {
                 Text = "Start with Windows",
-                Left = 20, Top = 392, Width = 280,
+                Left = 20, Top = 450, Width = 280,
                 Font = font,
                 Checked = IsStartupEnabled(),
             };
             _startupCheckBox.CheckedChanged += (s, e) => SetStartup(_startupCheckBox.Checked);
 
-            _reconnectButton = new Button { Text = "Reconnect",        Left = 20, Top = 422, Width = 280, Height = 28, Visible = false };
+            _reconnectButton = new Button { Text = "Reconnect",        Left = 20, Top = 480, Width = 280, Height = 28, Visible = false };
             _reconnectButton.Click += (s, e) => Reconnect();
 
-            _repairAdbButton = new Button { Text = "Repair ADB Tools", Left = 20, Top = 457, Width = 280, Height = 28, Visible = false };
+            _repairAdbButton = new Button { Text = "Repair ADB Tools", Left = 20, Top = 510, Width = 280, Height = 28, Visible = false };
             _repairAdbButton.Click += async (s, e) => await RepairAdbAsync();
 
             Controls.AddRange(new Control[]
             {
                 _statusLabel, _cpuLoadLabel, _cpuTempLabel, _cpuClockLabel, _cpuWattLabel,
                 _gpuLoadLabel, _gpuTempLabel, _gpuClockLabel, _gpuWattLabel,
-                _ramUsageLabel, _totalWattLabel, _lastUpdateLabel,
+                _ramUsageLabel,_ramUsageGBLabel,_ramTotalGBLabel, _totalWattLabel, _lastUpdateLabel,
                 _startupCheckBox, _reconnectButton, _repairAdbButton,
             });
 
@@ -228,6 +234,8 @@ namespace Monitor.Worker
                 _gpuClockLabel.Text   = $"GPU Clock: {stats.GpuClock:0} MHz";
                 _gpuWattLabel.Text    = $"GPU Power: {stats.GpuWatt:0.0} W";
                 _ramUsageLabel.Text   = $"RAM Usage: {stats.RamUsage:0.0}%";
+                _ramUsageGBLabel.Text = $"RAM Usage GB: {stats.RamUsedGb:0.0}GB";
+                _ramTotalGBLabel.Text = $"RAM Total GB: {stats.RamTotalGb:0.0}GB";
                 _totalWattLabel.Text  = $"TOTAL POWER: {stats.TotalWatt:0.0} W";
                 _lastUpdateLabel.Text = "Last update: " + DateTime.Now.ToString("HH:mm:ss");
             }));
