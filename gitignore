@@ -1,40 +1,45 @@
-## ==========================================
-## 1. .NET / C# Core Items
-## ==========================================
+# ==========================================
+# .NET / C#
+# ==========================================
 [Bb]in/
 [Oo]bj/
 [Pp]ublish/
-**/publish/
-**/Release/
 *.suo
 *.user
 *.userosscache
 *.sln.docstates
-appsettings.Development.json
-appsettings.Local.json
+.vs/
 
-## ==========================================
-## 2. Flutter / Dart / Mobile Items
-## ==========================================
+# ==========================================
+# Flutter / Dart
+# ==========================================
 **/build/
-.dark_tool/
+**/.dart_tool/
 .packages
 .flutter-plugins
 .flutter-plugins-dependencies
 .pub-cache/
 .pub/
-__pycache__/
-*.so
-*.apk
-*.aab
-*.exe
+*.g.dart
+*.freezed.dart
 
-## ==========================================
-## 3. IDEs & Operating Systems
-## ==========================================
-.vs/
-.vscode/
+# Build outputs (Android/iOS)
+**/*.apk
+**/*.aab
+**/*.ipa
+**/*.dSYM/
+**/android/.gradle/
+**/android/local.properties
+**/android/app/debug/
+**/android/app/profile/
+**/android/app/release/
+**/ios/Pods/
+**/ios/.symlinks/
+
+# ==========================================
+# OS
+# ==========================================
 .DS_Store
 Thumbs.db
-ehthumbs.db
 Desktop.ini
+ehthumbs.db
