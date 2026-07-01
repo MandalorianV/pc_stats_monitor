@@ -16,10 +16,10 @@ The entire system operates as an autonomous **Zero-Touch Automation Engine**. On
 
 ## 🚀 Step 1: Download the Packages
 
-No external web pages or installation wizards are required. You can download the ready-to-run packages directly from this repository using the quick links below:
+No external web pages or installation wizards are required. Click the links below to **directly download** the production packages immediately to your device:
 
-* 📱 **[Download Mobile App Package (.APK.ZIP)](./assets/pc_stats_monitor.apk.zip)** *(Extract and install on your Android Phone)*
-* 💻 **[Download Desktop Agent Package (.RAR)](./assets/DesktopStatsSender.rar)** *(Extract and run on your Windows PC)*
+* 📱 **[CLICK HERE: Download Mobile App Package (.APK.ZIP)](./assets/pc_stats_monitor.apk.zip?raw=true)** *(Extract and install on your Android Phone)*
+* 💻 **[CLICK HERE: Download Desktop Agent Package (.ZIP)](./assets/DesktopStatsSender.zip?raw=true)** *(Extract and run on your Windows PC)*
 
 ---
 
@@ -44,7 +44,7 @@ Because this application bridges low-level hardware data directly over USB, your
 ## 💻 Step 3: Windows PC Setup & Set-and-Forget
 
 ### 1. Extract the Distribution Layout
-1. Extract the contents of `DesktopStatsSender.rar` into a secure directory of your choice on your local machine.
+1. Extract the contents of `DesktopStatsSender.zip` into a secure directory of your choice on your local machine.
 2. **The Infrastructure Rule:** You will notice a `platform-tools` directory sitting adjacent to the main execution binary `PCStatsSender.exe`. **Do not move, rename, or separate the platform-tools folder from the .exe!** The desktop agent requires this structural layout to spawn child ADB processes.
 
 ```text
