@@ -1,136 +1,128 @@
-# PC Stats Monitor
+# PC Stats Monitor 🖥️📱
 
-Turn an old Android phone into a dedicated, always-on hardware monitor for your Windows PC. A lightweight tray agent reads CPU/GPU/RAM sensors and streams them over USB to a Flutter app running on the phone — no Wi-Fi, no IP configuration, just a cable.
+Turn your Android phone into a dedicated, real-time hardware monitoring dashboard for your Windows PC! This system streams live CPU/GPU load, temperatures, clocks, power, and RAM metrics directly to your device via a secure, ultra-low latency USB connection.
 
-<p align="center">
-  <img src="docs/screenshots/dashboard.jpg" width="700" alt="PC Stats Monitor dashboard" />
-</p>
+The entire system operates as an autonomous **Zero-Touch Automation Engine**. Once configured, you never need to touch your phone, tap any interfaces, or manage active windows — the software syncs completely with your PC's power and lock states.
 
 ---
 
-## ⬇️ Download
+## 📸 Screenshots
 
-| File | Description |
+| Mobile Display UI | Desktop Control Panel |
+| :---: | :---: |
+| ![Mobile UI](./assets/app_screenshot.jpg) | ![Desktop UI](./assets/Windows_app.png) |
+
+---
+
+## 🚀 Step 1: Download the Packages
+
+Click the links below to **directly download** the production packages:
+
+| Package | Description |
 |---|---|
-| [**DesktopStatsSender.zip**](https://github.com/MandalorianV/pc_stats_monitor/releases/download/v1.0.0/DesktopStatsSender.zip) | Windows tray agent — runs on your PC |
-| [**pc_stats_monitor.zip**](https://github.com/MandalorianV/pc_stats_monitor/releases/download/v1.0.0/pc_stats_monitor.zip) | Flutter source — build and install on the phone |
+| 📱 [**pc_stats_monitor.zip**](https://github.com/user-attachments/files/29590993/pc_stats_monitor.zip) | Android app — extract and install the APK on your phone |
+| 💻 [**DesktopStatsSender.zip**](https://github.com/user-attachments/files/29591599/DesktopStatsSender.zip) | Windows tray agent — extract and run on your PC |
 
-> **Requirement:** [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) must be installed on the Windows PC to run the agent.
+> **Requirement:** [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/10.0) must be installed on the Windows PC.
 
 ---
 
-## How it works
+## 📱 Step 2: Android Phone Setup (One-Time)
+
+### 1. Enable Developer Mode & USB Debugging
+
+1. Open **Settings → About Phone** and tap **Build Number** 7 times until *"You are now a developer!"* appears.
+2. Go back to Settings, find **Developer Options**, and enable **USB Debugging**.
+
+### 2. Install the App
+
+1. Extract `pc_stats_monitor.zip` and transfer the `.apk` to your phone (or extract directly on device).
+2. Tap the `.apk` to install. Android may show a *"Blocked by Play Protect"* or *"Unknown App"* warning — tap **More details → Install anyway**.
+3. Open the app, connect the phone to your PC via a data-capable USB cable, and accept the *"Allow USB debugging from this computer?"* prompt. Check **"Always allow from this computer"**.
+
+---
+
+## 💻 Step 3: Windows PC Setup
+
+### 1. Extract the Agent
+
+Extract `DesktopStatsSender.zip` to any permanent folder (e.g. `C:\PcStatsAgent\`).
+
+> **⚠️ Important:** If a `platform-tools` folder is missing, don't worry — the agent detects this automatically and offers a **one-click repair** to download it from Google's servers.
 
 ```
-┌──────────────────────┐      USB (ADB port-forward)      ┌──────────────────────┐
-│      Windows PC       │  ─────────────────────────────►  │     Android phone      │
-│                        │      TCP · JSON · 800ms          │                        │
-│   DesktopStatsSender   │                                   │     Flutter app        │
-│   (system tray agent)  │  ◄─────────────────────────────  │  (full-screen gauges)  │
-└──────────────────────┘      ADB wake/sleep commands       └──────────────────────┘
+📂 PcStatsAgent/
+├── 📂 platform-tools/    ← ADB binaries (downloaded automatically if missing)
+└── 📄 Monitor.Worker.exe ← Main agent
 ```
 
-- The **Windows agent** runs in the system tray, reads sensors via LibreHardwareMonitor, and streams JSON over TCP forwarded through ADB.
-- The **Flutter app** listens on that socket and renders live data as animated AMOLED-black gauges.
-- The agent wakes/sleeps the phone automatically on PC lock/unlock and shutdown.
+### 2. First Run
+
+1. Right-click `Monitor.Worker.exe` → **Run as administrator** (required for hardware sensor access).
+2. The app starts hidden in the system tray (look for the icon near the clock — click the `^` arrow if it's hidden).
+3. Double-click the tray icon to open the control panel.
+4. Check **"Start with Windows"** — the agent will now launch automatically on every boot, no Task Scheduler needed.
 
 ---
 
-## Features
+## 🔄 Zero-Touch Automation
 
-- 🖥️ **Live monitoring** — CPU & GPU load, temperature, clock speed, power draw, VRAM; RAM usage in GB; total system power
-- 🌑 **True-black AMOLED UI** — three-column layout (CPU / Total Power & RAM / GPU), gauges that shift green → red as load increases
-- 🔌 **Plug-and-play over USB** — ADB port-forward, no IP setup needed
-- 🔋 **Self-healing connection** — auto-reconnect on cable unplug/replug; adb server restart after repeated failures
-- 🛠️ **Self-repairing ADB** — if `platform-tools` is missing, the agent detects it and re-downloads with one click
-- 😴 **Smart sleep** — phone screen off on PC lock/shutdown/30 s idle, back on when PC unlocks
-- 🚀 **Start with Windows** — checkbox in the tray window, no Task Scheduler needed
-- 🧹 **Clean UI** — Reconnect and Repair buttons only appear when there's actually a problem
+Once set up, **put your phone on a desk mount and forget about it:**
+
+- **PC Startup** — Agent boots silently, sets up ADB port forwarding, wakes the phone, and starts streaming.
+- **Win + L (Lock)** — Phone screen turns off automatically to save battery.
+- **Unlock** — Phone wakes up and the app comes to the foreground.
+- **PC Shutdown** — Telemetry stops; phone screen turns off on its own after ~30 seconds.
 
 ---
 
-## Setup
-
-### 1. Windows agent
-
-1. Install [.NET 10 Desktop Runtime](https://dotnet.microsoft.com/en-us/download/dotnet/10.0).
-2. Download and extract [**DesktopStatsSender.zip**](https://github.com/MandalorianV/pc_stats_monitor/releases/download/v1.0.0/DesktopStatsSender.zip) to any folder (e.g. `C:\PcStatsAgent\`).
-3. Run `Monitor.Worker.exe` **as Administrator** (right-click → Run as administrator). Required for hardware sensor access.
-   - The app starts hidden in the system tray — look for the icon in the tray overflow (^ arrow near the clock).
-   - If `platform-tools` is missing, a notification pops up and the **Repair ADB Tools** button downloads it automatically.
-4. Double-click the tray icon to open the window. Check **"Start with Windows"** to launch automatically on every boot — no extra setup needed.
-
-### 2. Android phone
-
-1. **Enable Developer Options:** Settings → About phone → tap *Build number* 7 times.
-2. **Enable USB debugging:** Settings → Developer options → USB debugging → ON.
-3. Connect the phone via USB and accept the *"Allow USB debugging?"* prompt. Check **"Always allow from this computer"**.
-4. Install the Flutter app — choose one of:
-   - **Build from source** (requires [Flutter SDK](https://flutter.dev)):
-     ```bash
-     cd flutter_app
-     flutter pub get
-     flutter run --release
-     ```
-   - **Install the APK** from [Releases](https://github.com/MandalorianV/pc_stats_monitor/releases/tag/v1.0.0) (if an APK is provided).
-5. Open the app on the phone. It locks to landscape and stays awake while data is flowing.
-
-### 3. First-run checklist
-
-- [ ] Agent running in the tray (`Monitor.Worker.exe` visible in Task Manager)
-- [ ] Phone connected via USB with debugging authorized
-- [ ] Flutter app open on the phone
-- [ ] Tray window shows **"Connected (phone)"** in green ✅
-
----
-
-## Troubleshooting
+## 🔧 Troubleshooting
 
 | Symptom | Fix |
 |---|---|
-| `ADB not found` notification on startup | Click **Repair ADB Tools** in the tray window — downloads `platform-tools` automatically |
-| Phone shows **"WAITING FOR PC"** indefinitely | Open tray window → click **Reconnect** |
-| Unplugging/replugging the cable doesn't reconnect | Click **Reconnect** — this restarts the local adb server which can get stuck after a physical disconnect. The agent also does this automatically after ~5 failed attempts. |
-| All sensor values show `0` | Run the agent **as Administrator** — LibreHardwareMonitor needs elevated rights to read temperature and power sensors |
-| Phone screen stays on after PC shutdown | Check the phone's own screen timeout — set it to 30–60 s for fastest sleep after disconnect |
+| `ADB not found` notification | Open the tray window → click **Repair ADB Tools** — downloads automatically |
+| Phone shows **"WAITING FOR PC"** | Open tray window → click **Reconnect** (only visible when disconnected) |
+| Unplugging cable doesn't reconnect | Click **Reconnect** — restarts the local ADB server which can get stuck |
+| Sensor values stuck at `0` | Run `Monitor.Worker.exe` **as Administrator** — needed for temperature/power sensors |
+| Phone screen won't turn off | Set phone's screen timeout to 30–60 s in Android settings |
 
 ---
 
-## Repository structure
+## 🏗️ Building from Source
 
-```
-PcStatsMonitor/
-├── flutter_app/         Android app (Flutter) — the on-phone dashboard
-├── stats_sender_dotnet/  Windows tray agent (.NET solution)
-│   ├── Monitor.Core/      Shared DTOs and source generation context
-│   ├── Monitor.Hardware/  LibreHardwareMonitor sensor reading service
-│   ├── Monitor.Network/   TCP streaming, ADB control, self-repair
-│   └── Monitor.Worker/    WinForms tray UI + background worker (entry point)
-└── docs/screenshots/     Images used in this README
-```
-
----
-
-## Building from source
-
-### Windows agent
+### Windows Agent
 ```powershell
 cd stats_sender_dotnet/Monitor.Worker
 dotnet publish -c Release -r win-x64 --self-contained false -p:PublishSingleFile=true -o ./publish
 ```
-Output: `./publish/Monitor.Worker.exe` (~2.5 MB, requires .NET 10 Desktop Runtime)
+Requires [.NET 10 SDK](https://dotnet.microsoft.com/download/dotnet/10.0). Output: `Monitor.Worker.exe` (~2.5 MB)
 
-### Flutter app
+### Flutter App
 ```bash
 cd flutter_app
 flutter pub get
-flutter run --release        # installs directly to connected phone
-# or
-flutter build apk --release  # produces build/app/outputs/flutter-apk/app-release.apk
+flutter run --release       # installs directly to connected phone
+flutter build apk --release # produces an APK file
+```
+Requires [Flutter SDK](https://flutter.dev).
+
+---
+
+## 📁 Repository Structure
+
+```
+pc_stats_monitor/
+├── flutter_app/              Android app (Flutter) — the on-phone dashboard
+├── stats_sender_dotnet/       Windows tray agent (.NET solution)
+│   ├── Monitor.Core/           Shared DTOs
+│   ├── Monitor.Hardware/       LibreHardwareMonitor sensor reading
+│   ├── Monitor.Network/        TCP streaming, ADB control, self-repair
+│   └── Monitor.Worker/         WinForms tray UI + background worker
+└── assets/                    Screenshots and release files
 ```
 
 ---
 
-## License
+## 📄 License
 
 MIT — free to fork, modify, and use in your own setup.
