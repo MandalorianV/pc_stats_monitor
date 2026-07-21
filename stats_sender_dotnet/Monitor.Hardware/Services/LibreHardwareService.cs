@@ -68,6 +68,13 @@ namespace Monitor.Hardware.Services
                     var cpuPowerSensor = hw.Sensors.FirstOrDefault(s => s.SensorType == SensorType.Power && s.Name.Contains("Package"))
                                          ?? hw.Sensors.FirstOrDefault(s => s.SensorType == SensorType.Power);
                     p.CpuWatt = cpuPowerSensor?.Value ?? 0;
+
+                     // VCore: AMD Ryzen'de genelde "Core (SVI2 TFN)" veya "Core" ismiyle gelir,
+    // Intel'de "CPU Core" ile. En yaygın isim varyasyonlarını sırayla dene.
+    var vcoreSensor = hw.Sensors.FirstOrDefault(s => s.SensorType == SensorType.Voltage && s.Name.Contains("VCore"))
+                      ?? hw.Sensors.FirstOrDefault(s => s.SensorType == SensorType.Voltage && s.Name.Contains("Core") && !s.Name.Contains("SOC"))
+                      ?? hw.Sensors.FirstOrDefault(s => s.SensorType == SensorType.Voltage);
+    p.CpuVcore = vcoreSensor?.Value ?? 0;
                 }
 
                 if (hw.HardwareType is HardwareType.GpuNvidia or HardwareType.GpuAmd or HardwareType.GpuIntel)
@@ -104,18 +111,32 @@ namespace Monitor.Hardware.Services
                     p.RamTotalGb = p.RamUsedGb + (ramAvailableSensor?.Value ?? 0);
                 }
 
-                if (hw.HardwareType == HardwareType.Motherboard)
-                {
-                    foreach (var subHw in hw.SubHardware)
-                    {
-                        var totalPowerSensor = subHw.Sensors.FirstOrDefault(s => s.SensorType == SensorType.Power && (s.Name.Contains("Total") || s.Name.Contains("System")));
-                        if (totalPowerSensor != null && totalPowerSensor.Value.HasValue)
-                        {
-                            motherboardTotalPower = totalPowerSensor.Value.Value;
-                            motherboardPowerFound = true;
-                        }
-                    }
-                }
+              if (hw.HardwareType == HardwareType.Motherboard)
+{
+    ISensor? cpuFanSensor = null;
+    ISensor? cpuOptFanSensor = null;
+
+    foreach (var subHw in hw.SubHardware)
+    {
+        var totalPowerSensor = subHw.Sensors.FirstOrDefault(s => s.SensorType == SensorType.Power && (s.Name.Contains("Total") || s.Name.Contains("System")));
+        if (totalPowerSensor != null && totalPowerSensor.Value.HasValue)
+        {
+            motherboardTotalPower = totalPowerSensor.Value.Value;
+            motherboardPowerFound = true;
+        }
+
+        // Bu anakartta (GA-AX370-Gaming 3) Super I/O fan sensörleri generic
+        // isimlerle geliyor ve birden fazla subHardware'de aynı isimle
+        // tekrar edebiliyor (ör. ikinci grup hep 0 döner). Bu yüzden ilk
+        // bulunan geçerli eşleşmeyi koru, sonrakiyle ezme.
+        // Fiziksel test ile doğrulanan eşleşme: Fan #1 = CPU_FAN, Fan #5 = CPU_OPT
+        cpuFanSensor ??= subHw.Sensors.FirstOrDefault(s => s.SensorType == SensorType.Fan && s.Name == "Fan #1");
+        cpuOptFanSensor ??= subHw.Sensors.FirstOrDefault(s => s.SensorType == SensorType.Fan && s.Name == "Fan #5");
+    }
+
+    if (cpuFanSensor != null) p.CpuFanRpm = cpuFanSensor.Value ?? 0;
+    if (cpuOptFanSensor != null) p.CpuOptFanRpm = cpuOptFanSensor.Value ?? 0;
+}
             }
 
             if (motherboardPowerFound)

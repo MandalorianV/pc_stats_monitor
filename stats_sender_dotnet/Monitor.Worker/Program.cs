@@ -48,6 +48,8 @@ namespace Monitor.Worker
 
                         // 4. Background worker that runs the polling/streaming loop
                         services.AddHostedService<Worker>();
+
+                        services.AddSingleton(new SerialFanSender("COM5"));
                     })
                     .Build();
 

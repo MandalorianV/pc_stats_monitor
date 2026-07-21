@@ -6,6 +6,7 @@ namespace Monitor.Core.Models
         public float CpuTemp { get; set; }
         public float CpuClock { get; set; }
         public float CpuWatt { get; set; }
+        public float CpuVcore { get; set; }
         public float GpuLoad { get; set; }
         public float GpuTemp { get; set; }
         public float GpuClock { get; set; }
@@ -15,5 +16,7 @@ namespace Monitor.Core.Models
         public float TotalWatt { get; set; }
         public float RamUsedGb { get; set; }
         public float RamTotalGb { get; set; }
+        public float CpuFanRpm { get; set; }
+        public float CpuOptFanRpm { get; set; }
     }
 }

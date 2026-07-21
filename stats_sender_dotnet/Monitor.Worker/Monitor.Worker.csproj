@@ -20,6 +20,7 @@
     <ProjectReference Include="..\Monitor.Core\Monitor.Core.csproj" />
     <ProjectReference Include="..\Monitor.Hardware\Monitor.Hardware.csproj" />
     <ProjectReference Include="..\Monitor.Network\Monitor.Network.csproj" />
+    <PackageReference Include="System.IO.Ports" Version="9.0.0" />
   </ItemGroup>
 
 </Project>

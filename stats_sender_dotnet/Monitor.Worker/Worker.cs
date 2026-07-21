@@ -15,11 +15,13 @@ namespace Monitor.Worker
 
         private const string PhoneIp = "127.0.0.1";
         private const int PhonePort = 5000;
+        private readonly SerialFanSender _serialFanSender;
 
-        public Worker(IHardwareService hardwareService, ITcpStreamerService tcpService, MainForm mainForm)
+        public Worker(IHardwareService hardwareService, ITcpStreamerService tcpService, SerialFanSender serialFanSender, MainForm mainForm)
         {
             _hardwareService = hardwareService;
             _tcpService = tcpService;
+            _serialFanSender = serialFanSender;
             _mainForm = mainForm;
         }
 
@@ -44,7 +46,7 @@ namespace Monitor.Worker
 
                 // Send over TCP
                 await _tcpService.SendStatsAsync(stats);
-
+                _serialFanSender.SendGpuTemp(stats.GpuTemp);
                 // Poll/send interval
                 await Task.Delay(800, stoppingToken);
             }

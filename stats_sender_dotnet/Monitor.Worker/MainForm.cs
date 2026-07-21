@@ -23,6 +23,9 @@ namespace Monitor.Worker
         private readonly Label       _cpuTempLabel;
         private readonly Label       _cpuClockLabel;
         private readonly Label       _cpuWattLabel;
+        private readonly Label       _cpuFanLabel;
+        private readonly Label       _cpuOptFanLabel;
+        private readonly Label       _cpuVcoreLabel;
         private readonly Label       _gpuLoadLabel;
         private readonly Label       _gpuTempLabel;
         private readonly Label       _gpuClockLabel;
@@ -44,7 +47,7 @@ namespace Monitor.Worker
             _hardwareService = hardwareService;
             _tcpService      = tcpService;
 
-            Text = "PC Stats Sender"; Width = 320; Height = 600;
+            Text = "PC Stats Sender"; Width = 320; Height = 690;
             FormBorderStyle = FormBorderStyle.FixedDialog;
             MaximizeBox = false;
             StartPosition = FormStartPosition.CenterScreen;
@@ -55,33 +58,37 @@ namespace Monitor.Worker
             _cpuTempLabel    = new Label { Text = "CPU Temp: -",         Left = 20, Top = 80,  Width = 280, Font = font };
             _cpuClockLabel   = new Label { Text = "CPU Clock: -",        Left = 20, Top = 110, Width = 280, Font = font };
             _cpuWattLabel    = new Label { Text = "CPU Power: -",        Left = 20, Top = 140, Width = 280, Font = font };
-            _gpuLoadLabel    = new Label { Text = "GPU Load: -",         Left = 20, Top = 175, Width = 280, Font = font };
-            _gpuTempLabel    = new Label { Text = "GPU Temp: -",         Left = 20, Top = 205, Width = 280, Font = font };
-            _gpuClockLabel   = new Label { Text = "GPU Clock: -",        Left = 20, Top = 235, Width = 280, Font = font };
-            _gpuWattLabel    = new Label { Text = "GPU Power: -",        Left = 20, Top = 265, Width = 280, Font = font };
-            _ramUsageLabel   = new Label { Text = "RAM Usage: -",        Left = 20, Top = 300, Width = 280, Font = font };
-            _ramUsageGBLabel = new Label { Text = "RAM Used: -",         Left = 20, Top = 330, Width = 280, Font = font };
-            _ramTotalGBLabel = new Label { Text = "RAM Total: -",        Left = 20, Top = 360, Width = 280, Font = font };
-            _totalWattLabel  = new Label { Text = "TOTAL POWER: -",      Left = 20, Top = 390, Width = 280, Font = new Font("Segoe UI", 10, FontStyle.Bold), ForeColor = Color.DeepSkyBlue };
-            _lastUpdateLabel = new Label { Text = "Last update: -",      Left = 20, Top = 420, Width = 280, ForeColor = Color.Gray };
+            _cpuFanLabel     = new Label { Text = "CPU Fan: -",          Left = 20, Top = 170, Width = 280, Font = font };
+            _cpuOptFanLabel  = new Label { Text = "CPU OPT Fan: -",      Left = 20, Top = 200, Width = 280, Font = font };
+            _cpuVcoreLabel   = new Label { Text = "CPU VCore: -",        Left = 20, Top = 230, Width = 280, Font = font };
+            _gpuLoadLabel    = new Label { Text = "GPU Load: -",         Left = 20, Top = 265, Width = 280, Font = font };
+            _gpuTempLabel    = new Label { Text = "GPU Temp: -",         Left = 20, Top = 295, Width = 280, Font = font };
+            _gpuClockLabel   = new Label { Text = "GPU Clock: -",        Left = 20, Top = 325, Width = 280, Font = font };
+            _gpuWattLabel    = new Label { Text = "GPU Power: -",        Left = 20, Top = 355, Width = 280, Font = font };
+            _ramUsageLabel   = new Label { Text = "RAM Usage: -",        Left = 20, Top = 390, Width = 280, Font = font };
+            _ramUsageGBLabel = new Label { Text = "RAM Used: -",         Left = 20, Top = 420, Width = 280, Font = font };
+            _ramTotalGBLabel = new Label { Text = "RAM Total: -",        Left = 20, Top = 450, Width = 280, Font = font };
+            _totalWattLabel  = new Label { Text = "TOTAL POWER: -",      Left = 20, Top = 480, Width = 280, Font = new Font("Segoe UI", 10, FontStyle.Bold), ForeColor = Color.DeepSkyBlue };
+            _lastUpdateLabel = new Label { Text = "Last update: -",      Left = 20, Top = 510, Width = 280, ForeColor = Color.Gray };
 
             _startupCheckBox = new CheckBox
             {
                 Text = "Start with Windows",
-                Left = 20, Top = 452, Width = 280, Font = font,
+                Left = 20, Top = 542, Width = 280, Font = font,
                 Checked = IsStartupEnabled(),
             };
             _startupCheckBox.CheckedChanged += (s, e) => SetStartup(_startupCheckBox.Checked);
 
-            _reconnectButton = new Button { Text = "Reconnect",        Left = 20, Top = 482, Width = 280, Height = 28, Visible = false };
+            _reconnectButton = new Button { Text = "Reconnect",        Left = 20, Top = 572, Width = 280, Height = 28, Visible = false };
             _reconnectButton.Click += (s, e) => Reconnect();
 
-            _repairAdbButton = new Button { Text = "Repair ADB Tools", Left = 20, Top = 516, Width = 280, Height = 28, Visible = false };
+            _repairAdbButton = new Button { Text = "Repair ADB Tools", Left = 20, Top = 606, Width = 280, Height = 28, Visible = false };
             _repairAdbButton.Click += async (s, e) => await RepairAdbAsync();
 
             Controls.AddRange(new Control[]
             {
                 _statusLabel, _cpuLoadLabel, _cpuTempLabel, _cpuClockLabel, _cpuWattLabel,
+                _cpuFanLabel, _cpuOptFanLabel, _cpuVcoreLabel,
                 _gpuLoadLabel, _gpuTempLabel, _gpuClockLabel, _gpuWattLabel,
                 _ramUsageLabel, _ramUsageGBLabel, _ramTotalGBLabel,
                 _totalWattLabel, _lastUpdateLabel,
@@ -259,6 +266,9 @@ namespace Monitor.Worker
                 _cpuTempLabel.Text    = $"CPU Temp: {stats.CpuTemp:0}°C";
                 _cpuClockLabel.Text   = $"CPU Clock: {stats.CpuClock:0} MHz";
                 _cpuWattLabel.Text    = $"CPU Power: {stats.CpuWatt:0.0} W";
+                _cpuFanLabel.Text     = $"CPU Fan: {stats.CpuFanRpm:0} RPM";
+                _cpuOptFanLabel.Text  = $"CPU OPT Fan: {stats.CpuOptFanRpm:0} RPM";
+                _cpuVcoreLabel.Text   = $"CPU VCore: {stats.CpuVcore:0.000} V";
                 _gpuLoadLabel.Text    = $"GPU Load: {stats.GpuLoad:0}%";
                 _gpuTempLabel.Text    = $"GPU Temp: {stats.GpuTemp:0}°C";
                 _gpuClockLabel.Text   = $"GPU Clock: {stats.GpuClock:0} MHz";
