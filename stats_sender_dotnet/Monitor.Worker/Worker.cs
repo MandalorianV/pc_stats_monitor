@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Hosting;
 using Monitor.Hardware.Services;
 using Monitor.Network.Services;
+using Monitor.Worker.Rgb;
 
 namespace Monitor.Worker
 {
@@ -12,17 +13,24 @@ namespace Monitor.Worker
         private readonly IHardwareService _hardwareService;
         private readonly ITcpStreamerService _tcpService;
         private readonly MainForm _mainForm;
+        private readonly SerialFanSender _serialFanSender;
+        private readonly RgbService _rgb;
 
         private const string PhoneIp = "127.0.0.1";
         private const int PhonePort = 5000;
-        private readonly SerialFanSender _serialFanSender;
 
-        public Worker(IHardwareService hardwareService, ITcpStreamerService tcpService, SerialFanSender serialFanSender, MainForm mainForm)
+        public Worker(
+            IHardwareService hardwareService, 
+            ITcpStreamerService tcpService, 
+            SerialFanSender serialFanSender, 
+            MainForm mainForm,
+            RgbService rgb)
         {
             _hardwareService = hardwareService;
             _tcpService = tcpService;
             _serialFanSender = serialFanSender;
             _mainForm = mainForm;
+            _rgb = rgb;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -41,12 +49,16 @@ namespace Monitor.Worker
                 // Read hardware sensors
                 var stats = _hardwareService.RefreshAndRead(updateMotherboard);
 
+                // Android uygulaması için seçilen ekran rengi Hex string olarak atanıyor
+                stats.ScreenColor = _rgb.GetColorHex(RgbService.Target.Screen);
+
                 // Update the form UI
                 _mainForm.UpdateUiValues(stats);
 
                 // Send over TCP
                 await _tcpService.SendStatsAsync(stats);
                 _serialFanSender.SendGpuTemp(stats.GpuTemp);
+
                 // Poll/send interval
                 await Task.Delay(800, stoppingToken);
             }
@@ -63,10 +75,7 @@ namespace Monitor.Worker
                     await _tcpService.ConnectAsync(PhoneIp, PhonePort);
                     consecutiveFailures = 0;
 
-                    // Stay in this loop only while the connection is actually
-                    // alive. As soon as IsConnected goes false (dropped cable,
-                    // manual reconnect request, phone restart, etc.) we fall
-                    // through and immediately try to reconnect.
+                    // Stay in this loop only while the connection is actually alive.
                     while (!token.IsCancellationRequested && _tcpService.IsConnected)
                     {
                         await Task.Delay(1000, token);
@@ -76,12 +85,6 @@ namespace Monitor.Worker
                 {
                     consecutiveFailures++;
 
-                    // After a handful of failed attempts (e.g. following a
-                    // physical USB unplug/replug) the local adb server can
-                    // be left with a stale view of the device, silently
-                    // breaking `adb forward` forever. Restarting it here
-                    // self-heals this without requiring the user to click
-                    // the manual Reconnect button.
                     if (consecutiveFailures >= 5)
                     {
                         _tcpService.ForceReconnect();

@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Monitor.Hardware.Services;
 using Monitor.Network.Services;
+using Monitor.Worker.Rgb;
 
 namespace Monitor.Worker
 {
@@ -50,6 +51,10 @@ namespace Monitor.Worker
                         services.AddHostedService<Worker>();
 
                         services.AddSingleton(new SerialFanSender("COM5"));
+
+                        // 5. RGB (Corsair / SteelSeries / ASUS Aura) - renkleri uygular ve kaydeder
+                        services.AddSingleton<RgbService>();
+                        services.AddHostedService(sp => sp.GetRequiredService<RgbService>());
                     })
                     .Build();
 
